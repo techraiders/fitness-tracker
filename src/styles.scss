@@ -1,2 +1,29 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+html, body {
+  font-family: 'Roboto, sand-serif';
+  height: 100%;
+}
+
+body {
+  margin: 0;
+}
+a {
+  text-decoration: none;
+  color: white;
+}
+a:hover, a:active {
+  color: lightgray;
+}
+
+.navigation-items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-caption {
+  display: inline-block;
+  padding-left: 6px;
+}
