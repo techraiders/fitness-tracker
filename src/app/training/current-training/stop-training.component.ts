@@ -15,5 +15,6 @@ import { MAT_DIALOG_DATA } from "@angular/material";
   `
 })
 export class StopTrainingComponent {
-  constructor (@Inject(MAT_DIALOG_DATA) public passedData: any) {}
+  constructor (@Inject(MAT_DIALOG_DATA) public passedData: any) {
+  }
 }
