@@ -9,6 +9,7 @@ import { map } from "rxjs/operators";
 export class TrainingService {
   exerciseChanged = new Subject<Exercise>();
   exercisesChanged = new Subject<Exercise[]>();
+  finishedExercisesChanged = new Subject<Exercise[]>();
 
   private _availableExercises: Array<Exercise> = [
     { id: "crunches", name: "Crunches", duration: 30, calories: 8 },
@@ -60,15 +61,15 @@ export class TrainingService {
     return [...this._exercises];
   }
 
-  startExercises(selectedId: string) {
+  startExercises(data) {
     this.runningExercise = this.availableExercises.find(
-      ex => ex.id === selectedId
+      ex => ex.id === data.exercise.id
     );
     this.exerciseChanged.next({ ...this.runningExercise });
   }
 
   completeExercise() {
-    this._exercises.push({
+    this.addDataToDatabase({
       ...this.runningExercise,
       date: new Date(),
       state: "completed"
@@ -78,7 +79,7 @@ export class TrainingService {
   }
 
   cancelExercise(progress: number) {
-    this._exercises.push({
+    this.addDataToDatabase({
       ...this.runningExercise,
       duration: this.runningExercise.duration * (progress / 100),
       calories: this.runningExercise.calories * (progress / 100),
@@ -87,5 +88,18 @@ export class TrainingService {
     });
     this.runningExercise = null;
     this.exerciseChanged.next(null);
+  }
+
+  private addDataToDatabase(exercise: Exercise) {
+    this.db.collection("finishedExercises").add(exercise);
+  }
+
+  fetchCompletedOrCancelledExercises() {
+    this.db
+      .collection("finishedExercises")
+      .valueChanges()
+      .subscribe((exercises: Array<Exercise>) => {
+        this.finishedExercisesChanged.next(exercises);
+      });
   }
 }
