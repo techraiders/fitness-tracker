@@ -44,10 +44,13 @@ export class TrainingService {
           });
         })
       )
-      .subscribe((exercises: Exercise[]) => {
-        this.availableExercises = exercises;
-        this.exercisesChanged.next([...this.availableExercises]);
-      });
+      .subscribe(
+        (exercises: Exercise[]) => {
+          this.availableExercises = exercises;
+          this.exercisesChanged.next([...this.availableExercises]);
+        },
+        error => console.log(error)
+      );
   }
 
   get runningExercise() {
@@ -99,8 +102,11 @@ export class TrainingService {
     this.db
       .collection("finishedExercises")
       .valueChanges()
-      .subscribe((exercises: Array<Exercise>) => {
-        this.finishedExercisesChanged.next(exercises);
-      });
+      .subscribe(
+        (exercises: Array<Exercise>) => {
+          this.finishedExercisesChanged.next(exercises);
+        },
+        error => console.log(error)
+      );
   }
 }

@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { Subject } from "rxjs";
 import { Router } from "@angular/router";
 import { AngularFireAuth } from "@angular/fire/auth";
+import { MatSnackBar } from "@angular/material";
 
 @Injectable({
   providedIn: "root"
@@ -11,7 +12,11 @@ export class AuthService {
   private isAuthenticated: boolean = false;
   public authChange = new Subject<boolean>();
 
-  constructor(private router: Router, private afAuth: AngularFireAuth) {}
+  constructor(
+    private router: Router,
+    private afAuth: AngularFireAuth,
+    private snackBar: MatSnackBar
+  ) {}
 
   registerUser(authData: AuthData) {
     this.afAuth.auth
@@ -24,7 +29,7 @@ export class AuthService {
           this.router.navigate(["training"]);
         },
         error => {
-          console.log(error);
+          this.snackBar.open(error.message, null, { duration: 3000 });
         }
       );
   }
@@ -39,7 +44,7 @@ export class AuthService {
           this.router.navigate(["training"]);
         },
         error => {
-          console.log(error);
+          this.snackBar.open(error.message, null, { duration: 3000 });
         }
       );
   }
