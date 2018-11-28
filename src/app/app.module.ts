@@ -10,10 +10,9 @@ import { AppComponent } from "./app.component";
 import { WelcomeComponent } from "./welcome/welcome.component";
 import { HeaderComponent } from "./navigation/header/header.component";
 import { SidenavListComponent } from "./navigation/sidenav-list/sidenav-list.component";
-import { StopTrainingComponent } from "./training/current-training/stop-training.component";
 import { environment } from "../environments/environment";
 import { AuthModule } from "./auth/auth.module";
-import { TrainingModule } from "./training/training.module";
+
 import { SharedModule } from "./shared/shared.module";
 
 @NgModule({
@@ -26,7 +25,6 @@ import { SharedModule } from "./shared/shared.module";
   imports: [
     AppRoutingModule,
     AuthModule,
-    TrainingModule,
     SharedModule,
     BrowserModule,
     BrowserAnimationsModule,
@@ -34,7 +32,6 @@ import { SharedModule } from "./shared/shared.module";
     AngularFirestoreModule
   ],
   providers: [],
-  bootstrap: [AppComponent],
-  entryComponents: [StopTrainingComponent]
+  bootstrap: [AppComponent]
 })
 export class AppModule {}

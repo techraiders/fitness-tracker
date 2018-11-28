@@ -5,10 +5,10 @@ import { FormsModule } from "@angular/forms";
 import { MaterialModule } from "../material.module";
 
 import { FlexLayoutModule } from "@angular/flex-layout";
+
 const modules = [CommonModule, FormsModule, MaterialModule, FlexLayoutModule];
 
 @NgModule({
-  declarations: [],
   imports: modules,
   exports: modules
 })
