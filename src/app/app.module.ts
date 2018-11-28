@@ -15,7 +15,7 @@ import { environment } from "../environments/environment";
 import { AuthModule } from "./auth/auth.module";
 import { SharedModule } from "./shared/shared.module";
 
-import { appReducer } from "./app.reducer";
+import { reducers } from "./app.reducer";
 
 @NgModule({
   declarations: [
@@ -32,7 +32,7 @@ import { appReducer } from "./app.reducer";
     BrowserAnimationsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
-    StoreModule.forRoot({ui: appReducer})
+    StoreModule.forRoot(reducers)
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -5,7 +5,8 @@ import { Router } from "@angular/router";
 import { AngularFireAuth } from "@angular/fire/auth";
 import { UIService } from "../shared/ui.service";
 import { Store } from "@ngrx/store";
-import * as fromApp from '../app.reducer';
+import * as fromRoot from '../app.reducer';
+import * as UI from '../shared/ui.actions';
 
 @Injectable({
   providedIn: "root"
@@ -18,12 +19,12 @@ export class AuthService {
     private router: Router,
     private afAuth: AngularFireAuth,
     private uiService: UIService,
-    private store: Store<{ui: fromApp.State}>
+    private store: Store<{ui: fromRoot.State}>
   ) {}
 
   registerUser(authData: AuthData) {
     // this.uiService.loadingStateChanged.next(true);
-    this.store.dispatch({type: 'START_LOADING'});
+    this.store.dispatch(new UI.StartLoading());
     this.afAuth.auth
       .createUserWithEmailAndPassword(authData.email, authData.password)
       .then(
@@ -39,7 +40,7 @@ export class AuthService {
       )
       .finally(() => {
         //this.uiService.loadingStateChanged.next(false);
-        this.store.dispatch({type: 'STOP_LOADING'});
+        this.store.dispatch(new UI.StopLoading());
       });
   }
 
